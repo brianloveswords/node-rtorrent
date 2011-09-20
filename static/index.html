@@ -1,0 +1,34 @@
+<!doctype html public "wutlol">
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"/>
+    
+    <title dir="ltr">Oh hey</title>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='style.css' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <div id='body' class='loading'>
+      <h1 id='loading'>node-rtorrent</h1>
+    </div>
+    
+    <script id='torrentList' type='text/html'>
+      <ul id='main-torrent-list'>
+        {{#torrent}}
+          <li class='root torrent-item' data-hash='{{hash}}'>
+            <header>
+              <h2>{{ name }}</h2>
+            </header>
+          </li>
+        {{/torrent}}
+      </ul>
+    </script>
+    
+    <script type="text/javascript" src="/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="/ICanHaz.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/events.js"></script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 101%;
+  background: #444;
+  color: #eee;
+  font-family: sans-serif;
+  padding: 20px;
+}
+#body.loading {
+  width: 100%;
+  height: 100%;
+}
+
+#loading {
+  position: relative;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  color: #222;
+  font-size: 80px;
+  text-shadow: 0px 2px 2px #555;
+  margin: auto;
+  top: auto;
+  left: auto;
+  display: none;
+}
+
+#main-torrent-list {
+  list-style: none;
+  margin: 0;
+}
+
+#main-torrent-list li.torrent-item {
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: 5px;
+  padding: 5px;
+  -webkit-transition: all 0.05s ease;
+}
+#main-torrent-list li.torrent-item:hover {
+  background: #666;
+  border: 1px solid #999;
+  -webkit-transition: all 0.05s ease;
+}
+#main-torrent-list header h2:before {
+  content: '▶';
+  font-size: 14px;
+  line-height: 28px;
+  padding: 0 10px 0 5px;
+  position: relative;
+  top: -3px;
+  color: #dfa;
+
+}
+#main-torrent-list header h2:before:hover {
+  color: #dfa;
+}
+
+#main-torrent-list header h2 {
+  color: #f6f2f6;
+  text-shadow: 1px 1px 2px #222;
+  padding: 5px;
+  margin: 0;
+  cursor: default;
+  font-size: 28px;
+}
+
+#main-torrent-list header h2:hover {
+}
+
