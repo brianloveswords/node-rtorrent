@@ -20,6 +20,12 @@
           <li class='root torrent-item' data-hash='{{hash}}'>
             <header>
               <h2>{{ name }}</h2>
+              <dl>
+                <dt>Size</dt>
+                <dd>{{ total }}</dt>
+                <dt>Done</dt>
+                <dd>{{ done }}</dt>
+              </dl>
             </header>
           </li>
         {{/torrent}}
