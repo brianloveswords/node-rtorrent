@@ -10,8 +10,41 @@ var populateBody = function(html) {
   fadeOut(fill(fadeIn))
 }
 
+var tgt = document.getElementById('body')
+var over = function(e){
+  e.stopPropagation()
+  e.preventDefault()
+  return false
+}
+var exit = function(e){
+  e.stopPropagation()
+  e.preventDefault()
+  return false
+}
+var drop = function(e) {
+  e.stopPropagation()
+  e.preventDefault()
+  var files = e.dataTransfer.files
+    , reader = new FileReader();
+  var cursor = 0;
+  
+  reader.onloadend = function(e){
+    var data = e.target.result
+    socket.emit('add torrent', { data: data })
+    if (files[++cursor]) reader.readAsDataURL(files[cursor])
+  }
+  
+  reader.readAsDataURL(files[cursor]);
+  return false
+}
+tgt.addEventListener('dragenter', over , false)
+tgt.addEventListener('dragover', over, false)
+tgt.addEventListener('dragexit', exit, false)
+tgt.addEventListener('drop', drop, false)
+
+
 socket.on('initial torrent list', function(torrents){
   var html = ich.torrentList({torrent: torrents})
-  console.dir(torrents)
   populateBody(html);
 })
+

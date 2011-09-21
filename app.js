@@ -13,10 +13,21 @@ app.get('/torrents', function(req, res, next){
 })
 
 io.sockets.on('connection', function(socket) {
-  rtorrent.getAll(function(err, torrents){
-    console.log('emitting initial list')
-    socket.emit('initial torrent list', torrents)
+  var emitTorrentList = function(){
+    rtorrent.getAll(function(err, torrents){
+      socket.emit('initial torrent list', torrents)
+    })
+  }
+
+  socket.on('add torrent', function(data){
+    var raw = Buffer(data.data.split('base64,')[1], 'base64')
+    rtorrent.addNewRaw(raw, function(err, val){
+      console.dir(val)
+      emitTorrentList()
+    })
   })
+
+  emitTorrentList();
 })
 
 console.log('starting on port 8000')
