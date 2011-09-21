@@ -2,11 +2,15 @@ var socket = io.connect('http://localhost')
 
 $('#loading').fadeIn(1000)
 var populateBody = function(html) {
-  var el = $('#body')
+  var el = $('#main')
   var fadeOut = function(cb){ el.fadeOut(300, cb) }
   var fill = function(cb){ return function(){ el.html(html); cb() }}
   var fadeIn = function(cb){ el.fadeIn(300, (cb || function(){})) }
   fadeOut(fill(fadeIn))
+}
+var updateBody = function(html) {
+  var el = $('#main')
+  el.html(html)
 }
 
 // drag and drop section
@@ -52,5 +56,8 @@ socket.on('initial torrent list', function(torrents){
   var html = ich.torrentList({torrent: torrents})
   populateBody(html);
 })
-
+socket.on('update torrent list', function(torrents){
+  var html = ich.torrentList({torrent: torrents})
+  updateBody(html);
+})
 $('li.torrent-item').live('click', startTorrent)

@@ -69,3 +69,7 @@ body {
 #main-torrent-list header h2:hover {
 }
 
+#main-torrent-list li .details {
+  padding-left: 40px;
+}
+
