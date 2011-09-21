@@ -39,3 +39,9 @@ rtorrent.addNewRaw = function(data, callback) {
   }
   writeFile(data, loadTorrentFile(callback))
 }
+
+rtorrent.startDownload = function(id, callback){
+  client.methodCall('d.start', [id], function(err, val){
+    callback(null, id)
+  })
+}

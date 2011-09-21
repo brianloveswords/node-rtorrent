@@ -19,11 +19,18 @@ io.sockets.on('connection', function(socket) {
     })
   }
 
-  socket.on('add torrent', function(data){
+  socket.on('add torrent', function(data) {
     var raw = Buffer(data.data.split('base64,')[1], 'base64')
     rtorrent.addNewRaw(raw, function(err, val){
       console.dir(val)
       emitTorrentList()
+    })
+  })
+
+  socket.on('start download', function(data) {
+    rtorrent.startDownload(data.id, function(err, val){
+      console.dir(val)
+      socket.emit('update state', {id: data.id})
     })
   })
 

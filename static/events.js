@@ -1,15 +1,15 @@
 var socket = io.connect('http://localhost')
 
-$('#loading').fadeIn(1000);
-
+$('#loading').fadeIn(1000)
 var populateBody = function(html) {
   var el = $('#body')
-  var fadeOut = function(cb){ el.fadeOut(500, cb) }
+  var fadeOut = function(cb){ el.fadeOut(300, cb) }
   var fill = function(cb){ return function(){ el.html(html); cb() }}
-  var fadeIn = function(cb){ el.fadeIn(500, (cb || function(){})) }
+  var fadeIn = function(cb){ el.fadeIn(300, (cb || function(){})) }
   fadeOut(fill(fadeIn))
 }
 
+// drag and drop section
 var tgt = document.getElementById('body')
 var over = function(e){
   e.stopPropagation()
@@ -27,13 +27,13 @@ var drop = function(e) {
   var files = e.dataTransfer.files
     , reader = new FileReader();
   var cursor = 0;
-  
+
   reader.onloadend = function(e){
     var data = e.target.result
     socket.emit('add torrent', { data: data })
     if (files[++cursor]) reader.readAsDataURL(files[cursor])
   }
-  
+
   reader.readAsDataURL(files[cursor]);
   return false
 }
@@ -42,9 +42,15 @@ tgt.addEventListener('dragover', over, false)
 tgt.addEventListener('dragexit', exit, false)
 tgt.addEventListener('drop', drop, false)
 
+var startTorrent = function(e){
+  var el = $(this)
+    , hash = el.data('hash')
+  socket.emit('start download', {id: hash})
+}
 
 socket.on('initial torrent list', function(torrents){
   var html = ich.torrentList({torrent: torrents})
   populateBody(html);
 })
 
+$('li.torrent-item').live('click', startTorrent)
